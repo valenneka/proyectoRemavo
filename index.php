@@ -1,3 +1,5 @@
+<?php require_once __DIR__ . '/config.php'; ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -13,7 +15,7 @@
 <body>
     <?php include('src/vista/components/navbar.php'); ?>
 
-    <section class="promo">
+    <section class="promo" id="inicio">
         <div class="container">
             <h1 class="titulo">Caseras,<br> Con una pizca extra<br> De <span class="amor">Amor</span></h1>
             <p>Perfección de sabor en una corteza crujiente: una sinfonía entre el queso y los aderezos.</p>
