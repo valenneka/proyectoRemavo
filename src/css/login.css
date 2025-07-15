@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #EEF2FF; /* color de fondo más claro */
+}
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 0; /* más espacio arriba y abajo */
+    min-height: calc(100vh - 160px);
+}
+
+h2 {
+    font-size: 32px; /* más grande */
+    color: #111;
+    margin-bottom: 40px; /* más separación con el form */
+}
+
+.login-container {
+    text-align: center;
+}
+
+.login-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 50px 40px; /* más padding interno vertical */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* más espacio entre inputs */
+    width: 400px; /* más ancho */
+}
+
+.login-box label {
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}
+
+.login-box input {
+    padding: 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.login-box button {
+    background-color: #222;
+    color: white;
+    padding: 14px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #000;
+}
+
+.login-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.login-links a {
+    color: #666;
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
