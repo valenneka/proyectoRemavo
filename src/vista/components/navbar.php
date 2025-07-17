@@ -16,7 +16,7 @@
                 <li><a href="<?= BASE_URL ?>/vista/usuarios/usuarios.php">Tienda</a></li>
                 <li><a href="<?= BASE_URL ?>/vista/roles/roles.php">Historia</a></li>
                 <li><a href="<?= BASE_URL ?>/vista/permisos/permisos.php"><img src="<?= BASE_URL ?>/images/carrito.svg" alt="Carrito" class="carrito"></a></li>
-                <li><a href="<?= BASE_URL ?>/vista/reportes/reportes.php"><img src="<?= BASE_URL ?>/images/usuario.svg" alt="Usuario"></a></li>
+                <li><a href="<?= BASE_URL ?>/src/vista/public/login.php"><img src="<?= BASE_URL ?>/images/usuario.svg" alt="Usuario"></a></li>
             </ul>
         </div>
     </header>
