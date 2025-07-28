@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../../config.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizzería Dominico - Login</title>
+    <title>Pizzería Dominico - Perfil</title>
 
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/footer.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/navbar.css">
@@ -22,23 +22,26 @@ require_once __DIR__ . '/../../../config.php';
 
     <div class="login-page">
         <div class="login-container">
-            <h2>Inicio de Sesión</h2>
-            <form class="login-box" action="<?= BASE_URL ?>/src/vista/public/login.php" method="post">
-                <label for="username">Correo</label>
+            <h2>Perfil de Usuario</h2>
+            <form class="login-box" action="<?= BASE_URL ?>/controller/profile.php" method="post">
+                <label for="username">Nombre</label>
                 <input type="text" id="username" name="username" placeholder="(*)" required>
 
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="(*)" required>
+                <label for="telefono">Teléfono</label>
+                <input type="number" id="telefono" name="telefono" placeholder="(*)" required>
 
-                <button type="submit">Entrar</button>
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" name="correo" placeholder="(*)" required>
+
+                <button type="submit">Actualizar Perfil</button>
 
                 <div class="login-links">
-                    <a href="#">¿Olvidaste tu contraseña?</a>
-                    <a href="<?= BASE_URL ?>/src/vista/public/registro.php">Regístrate aquí</a>
+                    <a href="<?= BASE_URL ?>/src/vista/public/login.php">Volver al inicio</a>
                 </div>
             </form>
         </div>
     </div>
+
     <?php include(__DIR__ . '/../components/footer.php'); ?>
 </body>
 </html>
