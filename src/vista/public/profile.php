@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
+if (!isset($_SESSION['usuario'])) {
+    header("Location: " . BASE_URL . "/src/vista/public/login.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +27,7 @@ require_once __DIR__ . '/../../../config.php';
 
     <div class="login-page">
         <div class="login-container">
-            <h2>Perfil de Usuario</h2>
+            <h2>Bienvenido a tu perfil <?php echo $_SESSION["usuario"]["nombre"];?></h2>
             <form class="login-box" action="<?= BASE_URL ?>/controller/profile.php" method="post">
                 <label for="username">Nombre</label>
                 <input type="text" id="username" name="username" placeholder="(*)" required>

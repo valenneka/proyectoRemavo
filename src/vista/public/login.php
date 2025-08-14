@@ -23,9 +23,18 @@ require_once __DIR__ . '/../../../config.php';
     <div class="login-page">
         <div class="login-container">
             <h2>Inicio de Sesión</h2>
-            <form class="login-box" action="<?= BASE_URL ?>/src/vista/public/login.php" method="post">
-                <label for="username">Correo</label>
-                <input type="text" id="username" name="username" placeholder="(*)" required>
+            <form class="login-box" action="<?= BASE_URL ?>/controller/login.php" method="post">
+
+                <?php
+                if (isset($_SESSION["error"])): ?>
+                    <div class="error-message">
+                        <?php echo $_SESSION["error"];
+                        unset($_SESSION["error"]); ?>
+                    </div>
+                <?php endif; ?>
+
+                <label for="correo">Correo</label>
+                <input type="text" id="correo" name="correo" placeholder="(*)" required>
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="(*)" required>
@@ -41,4 +50,5 @@ require_once __DIR__ . '/../../../config.php';
     </div>
     <?php include(__DIR__ . '/../components/footer.php'); ?>
 </body>
+
 </html>

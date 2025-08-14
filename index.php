@@ -38,6 +38,9 @@
         </div>
     </section>
 
+
+    
+
     <?php include('src/vista/components/footer.php'); ?>
 </body>
 
