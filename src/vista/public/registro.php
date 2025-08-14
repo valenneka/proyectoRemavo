@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/footer.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/navbar.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/login.css"> <!-- O auth.css si renombrás -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/login.css"> 
 </head>
 
 <body>
@@ -28,7 +28,10 @@
                 <input type="number" id="telefono" name="telefono" placeholder="(*)" required>
 
                 <label for="correo">Correo</label>
-                <input type="email" id="correo" name="correo" placeholder="(*)" required>
+                <input type="text" id="correo" name="correo" placeholder="(*)" required>
+
+                <label for="direccion">Direccion</label>
+                <input type="text" id="direccion" name="direccion" placeholder="(*)" required>
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="(*)" required>
