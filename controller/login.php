@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $usuario['contraseña'])) {
             unset($usuario['contraseña']);
             $_SESSION['usuario'] = $usuario;
-            header("Location: " . BASE_URL . "/src/vista/public/profile.php");
+            header("Location: " . BASE_URL . "/src/vista/public/perfil.php");
             exit;
         } else {
            $_SESSION["error"] = "Correo o contraseña incorrectos.";
