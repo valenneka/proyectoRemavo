@@ -1,0 +1,106 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #EEF2FF;
+}
+
+.profile-page {
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+    min-height: calc(100vh - 160px);
+}
+
+h2 {
+    font-size: 32px;
+    color: #111;
+    margin-bottom: 40px;
+}
+
+.profile-container {
+    text-align: center;
+}
+
+.profile-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 50em;
+    text-align: left;
+}
+
+.profile-box label {
+    font-size: 20px;
+    color: #333;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Pedido integrado al div principal */
+
+.order-header {
+    margin-top: 30px;
+    font-size: 23px;
+    font-weight: normal;
+}
+
+.order-section {
+    padding-top: 15px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 12px;
+    display: flex; 
+    align-items: center; 
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.status-badge {
+    background-color: #ffd700;
+    color: #333;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    
+}
+
+.menu-items {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    border-top: 1px solid #e5e5e5;
+}
+
+.menu-item {
+    padding: 4px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+
+/* Icono de edición */
+.edit-svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    cursor: pointer;
+}
