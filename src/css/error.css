@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==== BODY ==== */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+}
+
+/* ==== CONTAINER ==== */
+.error-container {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* ==== LOGO ==== */
+.error-container img {
+    width: 50%;          /* responsivo: ocupa mitad del ancho */
+    max-width: 320px;    /* pero nunca más de 320px */
+    min-width: 180px;    /* nunca más chico de 180px */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* ==== TITLES ==== */
+.error-container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.error-container p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* ==== BUTTON ==== */
+.error-container a {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #d32f2f;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.error-container a:hover {
+    background: #b71c1c;
+    transform: scale(1.05);
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 768px) {
+    .error-container h1 {
+        font-size: 1.6rem;
+    }
+
+    .error-container p {
+        font-size: 0.95rem;
+    }
+
+    .error-container img {
+        width: 60%;
+        max-width: 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-container h1 {
+        font-size: 1.4rem;
+    }
+
+    .error-container p {
+        font-size: 0.9rem;
+    }
+
+    .error-container img {
+        width: 70%;
+        max-width: 220px;
+    }
+}

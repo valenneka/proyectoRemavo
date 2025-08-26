@@ -1,0 +1,60 @@
+.main-content {
+    margin-left: 250px; /* espacio para el sidebar */
+    padding: 40px;
+    background-color: #f5f6fa;
+    min-height: 100vh;
+}
+
+/* Contenedor de las tarjetas */
+.stats-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Tarjetas individuales */
+.stats-card {
+    background-color: #ffffff;
+    flex: 1 1 200px; /* se adaptan al tamaño disponible */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Icono */
+.stats-icon {
+    background: linear-gradient(135deg, #f97316, #f59e0b);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* Información de la estadística */
+.stats-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-value {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #111827;
+}
+
+.stats-label {
+    font-size: 0.9em;
+    color: #6b7280;
+}
