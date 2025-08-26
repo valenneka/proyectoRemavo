@@ -10,7 +10,6 @@ La aplicación brindará funciones clave para mejorar la atención al cliente, e
 
 * **Maximiliano Echague**
 * **Rodrigo Hernandez**
-* **Enzo Gomez**
 * **Valentín Kucharski**
 
 ---
