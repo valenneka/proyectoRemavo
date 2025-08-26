@@ -53,10 +53,7 @@ if (!isset($_SESSION['usuario'])) {
                         </ul>
                     </div>
                 </div>
-
-                <div class="">
-                    <a href="<?= BASE_URL ?>/src/vista/public/login.php">Volver al inicio</a>
-                </div>
+                    <a href="<?= BASE_URL ?>/controller/salirCuenta.php" class="salirCuenta">Salir de la cuenta</a>
             </form>
         </div>
     </div>
