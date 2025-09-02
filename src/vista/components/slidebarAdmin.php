@@ -1,7 +1,8 @@
 <?php require_once __DIR__ . '/../../../config.php';
 
 if (
-    !isset($_SESSION['usuario']) || ($_SESSION['usuario']['ID_Rol'] != 2 && $_SESSION['usuario']['ID_Rol'] != 3)) {
+    !isset($_SESSION['usuario']) || ($_SESSION['usuario']['ID_Rol'] != 2 && $_SESSION['usuario']['ID_Rol'] != 3)
+) {
     header("Location: " . BASE_URL . "/src/vista/public/error.php");
     exit;
 }
@@ -21,7 +22,9 @@ if (
     <div class="sidebar">
         <div class="logo-section">
             <div class="logo">
-                <img src="<?= BASE_URL ?>/images/Logo.svg" alt="Logo" class="section_logo">
+                <a href="<?= BASE_URL ?>/index.php">
+                    <img src="<?= BASE_URL ?>/images/Logo.svg" alt="Logo" class="section_logo">
+                </a>
             </div>
         </div>
 

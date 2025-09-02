@@ -12,14 +12,6 @@
 <body>
 
     <div class="error-container">
-
-        <?php
-        echo "<pre>";
-        var_dump($_SESSION);
-        echo "</pre>";
-        exit;
-        ?>
-        
         <img src="<?= BASE_URL ?>/images/Logo.svg" alt="Logo Pizzería">
         <h1>Acceso Denegado</h1>
         <p>No tienes permisos para acceder a esta página.</p>
