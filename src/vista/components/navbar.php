@@ -13,7 +13,7 @@
 <body>
     <header class="navbar">
         <div class="navbar_container">
-            <img src="<?= BASE_URL ?>/images/Logo.svg" alt="Logo" class="navbar_logo">
+            <a href="<?= BASE_URL ?>/index.php"><img src="<?= BASE_URL ?>/images/Logo.svg" alt="Logo" class="navbar_logo"></a>
             <ul class="navbar_links">
                 <li><a href="<?= BASE_URL ?>/index.php">Inicio</a></li>
                 <li><a href="<?= BASE_URL ?>/vista/usuarios/usuarios.php">Tienda</a></li>
