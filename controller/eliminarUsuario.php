@@ -12,7 +12,7 @@ if (isset($_POST['idUsuario']) && is_numeric($_POST['idUsuario'])) {
 
     if ($stmt->execute()) {
         // Si se elimina correctamente, redirigir a la lista de usuarios
-        header("Location: " . BASE_URL . "/src/vista/admin/usuarios.php");
+        header("Location: " . BASE_URL . "/vista/admin/usuarios.php");
         exit();
     } else {
         $_SESSION["error"] = "Error al eliminar el usuario: " .  $conn->error;

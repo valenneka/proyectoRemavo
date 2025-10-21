@@ -10,7 +10,7 @@ if (isset($_POST['idUsuario'], $_POST['rol'])) {
     $stmt->bind_param("ii", $nuevoRol, $idUsuario);
 
     if ($stmt->execute()) {
-        header("Location: " . BASE_URL . "/src/vista/admin/usuarios.php");
+        header("Location: " . BASE_URL . "/vista/admin/usuarios.php");
         $_SESSION["acierto"] = "Rol actualizado correctamente.";
         exit;
     } else {

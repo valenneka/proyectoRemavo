@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../../../config.php'; ?>
+<?php 
+require_once(__DIR__ . '/../../config.php'); 
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +44,7 @@
                 <button type="submit">Registrarse</button>
 
                 <div class="login-links">
-                    <a href="<?= BASE_URL ?>/src/vista/public/login.php">¿Ya tienes cuenta? Inicia sesión</a>
+                    <a href="<?= BASE_URL ?>/vista/public/login.php">¿Ya tienes cuenta? Inicia sesión</a>
                 </div>
             </form>
         </div>

@@ -7,6 +7,22 @@ $database = "pizzeriaDominico";
 $conn = new mysqli($host, $user, $password, $database);
 
 if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+    // Comprobar si ya se ha enviado el header Content-Type
+    $headers = headers_list();
+    $hasJsonHeader = false;
+    foreach ($headers as $header) {
+        if (stripos($header, 'Content-Type:') === 0 && stripos($header, 'application/json') !== false) {
+            $hasJsonHeader = true;
+            break;
+        }
+    }
+
+    // Si no tiene header JSON, establecerlo
+    if (!$hasJsonHeader) {
+        header('Content-Type: application/json; charset=utf-8');
+    }
+
+    echo json_encode(['success' => false, 'msg' => 'Error de conexión a la base de datos: ' . $conn->connect_error]);
+    exit;
 }
 ?>

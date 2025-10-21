@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../../../config.php'; ?>
+<?php require_once(__DIR__ . '/../../config.php');?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,8 +15,12 @@
                 <span>&copy; 2025 Pizzería Dominico</span>
             </div>
             <div class="footer_social">
-                <a href="#"><img src="<?= BASE_URL ?>/images/instagram.svg" alt="Instagram"></a>
-                <a href="#"><img src="<?= BASE_URL ?>/images/facebook.svg" alt="Facebook"></a>
+                <a href="https://www.instagram.com/pizzeriadominico/" target="_blank" rel="noopener noreferrer" title="Síguenos en Instagram">
+                    <img src="<?= BASE_URL ?>/images/instagram.svg" alt="Instagram">
+                </a>
+                <a href="https://www.facebook.com/pizzeriadominico/" target="_blank" rel="noopener noreferrer" title="Síguenos en Facebook">
+                    <img src="<?= BASE_URL ?>/images/facebook.svg" alt="Facebook">
+                </a>
             </div>
         </div>
     </footer>

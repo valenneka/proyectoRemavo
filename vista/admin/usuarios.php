@@ -1,6 +1,6 @@
-<?php require_once __DIR__ . '/../../../config.php';
+<?php require_once __DIR__ . '/../../config.php';
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['ID_Rol'] != 3) {
-    header("Location: " . BASE_URL . "/src/vista/public/error.php");
+    header("Location: " . BASE_URL . "/vista/public/error.php");
     exit;
 }
 ?>
@@ -10,8 +10,9 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['ID_Rol'] != 3) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Usuarios</title>
+    <title>Pizzería Dominico - Usuarios</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/src/css/usuarios.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/src/css/slidebarAdmin.css">
 </head>
 
 <body>
@@ -43,7 +44,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['ID_Rol'] != 3) {
             </tr>
         </thead>
         <tbody>
-            <?php include(__DIR__ . '/../../../controller/gestionUsuarios.php'); ?>
+            <?php include(__DIR__ . '/../../controller/gestionUsuarios.php'); ?>
         </tbody>
     </table>
 </body>

@@ -1,11 +1,11 @@
-<?php require_once __DIR__ . '/../../../config.php'; ?>
+<?php require_once __DIR__ . '/../../config.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizzeria Dominico - Error</title>
+    <title>Pizzería Dominico - Error</title>
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/error.css">
 </head>
 

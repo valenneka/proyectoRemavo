@@ -7,18 +7,24 @@ body {
 .profile-page {
     display: flex;
     justify-content: center;
-    padding: 60px 0;
+    align-items: flex-start;
+    padding: 60px 20px;
     min-height: calc(100vh - 160px);
+    width: 100%;
 }
 
 h2 {
     font-size: 32px;
     color: #111;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .profile-container {
     text-align: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .profile-box {
@@ -28,21 +34,411 @@ h2 {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 50em;
+    gap: 30px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     text-align: left;
 }
 
+/* Sección de Información del Usuario */
+.user-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-item label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.info-item span {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Dirección Editable */
+.direccion-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.direccion-input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #f5f5f5;
+    transition: all 0.3s;
+}
+
+.direccion-input:read-only {
+    background: #f5f5f5;
+    cursor: default;
+}
+
+.direccion-input:not(:read-only) {
+    background: white;
+    border-color: #4285f4;
+}
+
+.edit-direccion-btn {
+    background: #4285f4;
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.edit-direccion-btn:hover {
+    background: #3367d6;
+    transform: scale(1.05);
+}
+
+.btn-guardar-direccion {
+    background: #34a853;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-guardar-direccion:hover {
+    background: #2d8e47;
+    transform: translateY(-2px);
+}
+
+/* Último Pedido */
+.order-card {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 10px;
+}
+
+.order-header {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 20px 0;
+}
+
+.loading-text {
+    color: #666;
+    font-style: italic;
+}
+
+.order-section {
+    margin-top: 15px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.status-badge {
+    background-color: #ffd700;
+    color: #333;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-badge.pendiente {
+    background-color: #ffc107;
+}
+
+.status-badge.en-proceso {
+    background-color: #2196f3;
+    color: white;
+}
+
+.status-badge.en-camino {
+    background-color: #ff9800;
+    color: white;
+}
+
+.status-badge.entregado {
+    background-color: #4caf50;
+    color: white;
+}
+
+.status-badge.cancelado {
+    background-color: #f44336;
+    color: white;
+}
+
+.edit-pedido-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #4285f4;
+    transition: all 0.3s;
+}
+
+.edit-pedido-btn:hover {
+    transform: scale(1.1);
+}
+
+.edit-svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.edit-svg:hover {
+    transform: scale(1.1);
+}
+
+.menu-items {
+    list-style: none;
+    padding-left: 0;
+    margin: 15px 0 0 0;
+}
+
+.menu-item {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #555;
+    border-bottom: 1px solid #eee;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.no-pedido {
+    text-align: center;
+    color: #999;
+    padding: 30px;
+    font-style: italic;
+}
+
+/* Botón Salir */
 .salirCuenta {
-    margin-top: 30px;
+    margin-top: 20px;
     color: #ff4d4f;
     text-decoration: none;
     font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+    transition: all 0.3s;
 }
 
-.profile-box label {
-    font-size: 20px;
+.salirCuenta:hover {
+    color: #d32f2f;
+    transform: translateX(5px);
+}
+
+/* Modal para Modificar Pedido */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content-pedido {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
     color: #333;
+}
+
+.modal-title {
+    font-size: 24px;
+    color: #333;
+    margin: 0 0 25px 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #4285f4;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+}
+
+.pedido-items {
+    margin-top: 20px;
+}
+
+.pedido-items h4 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.items-table th,
+.items-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.items-table th {
+    background: #f5f5f5;
+    font-weight: 600;
+    color: #333;
+}
+
+.items-table td {
+    color: #555;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-cancelar,
+.btn-guardar-pedido {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancelar {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.btn-cancelar:hover {
+    background: #e5e5e5;
+}
+
+.btn-guardar-pedido {
+    background: linear-gradient(135deg, #4285f4 0%, #3367d6 100%);
+    color: white;
+}
+
+.btn-guardar-pedido:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
 }
 
 .error-message {
@@ -53,62 +449,67 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Pedido integrado al div principal */
-
-.order-header {
-    margin-top: 30px;
-    font-size: 23px;
-    font-weight: normal;
-}
-
-.order-section {
-    padding-top: 15px;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 12px;
-    display: flex; 
-    align-items: center; 
-}
-
-.section-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-}
-
-.status-badge {
-    background-color: #ffd700;
-    color: #333;
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-size: 14px;
-    font-weight: 500;
+/* Responsive Design */
+@media (max-width: 1366px) {
+    .profile-box {
+        max-width: 750px;
+        padding: 35px;
+    }
     
+    h2 {
+        font-size: 28px;
+    }
 }
 
-.menu-items {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-    border-top: 1px solid #e5e5e5;
+@media (max-width: 768px) {
+    .profile-page {
+        padding: 40px 15px;
+    }
+    
+    .profile-box {
+        padding: 25px;
+        max-width: 100%;
+    }
+    
+    h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .section-header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .modal-content-pedido {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
 }
 
-.menu-item {
-    padding: 4px 0;
-    font-size: 16px;
-    color: #333;
+@media (max-width: 480px) {
+    .profile-box {
+        padding: 20px 15px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .status-badge {
+        align-self: flex-start;
+    }
+
+    .direccion-container {
+        flex-direction: column;
+    }
+
+    .edit-direccion-btn {
+        align-self: flex-end;
+    }
 }
-
-
-/* Icono de edición */
-.edit-svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-    cursor: pointer;
-}
-
