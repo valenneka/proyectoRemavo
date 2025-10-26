@@ -62,3 +62,42 @@
 .facebook {
     height: 20px
 }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .footer_container {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .footer_branding img {
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer_container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .footer_branding {
+        flex-direction: column;
+    }
+
+    .footer_social {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer_container {
+        font-size: 14px;
+    }
+
+    .footer_branding img {
+        height: 40px;
+    }
+}

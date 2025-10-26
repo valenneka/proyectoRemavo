@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../config.php';
+require_once(__DIR__ . '/../../config.php');
 if (isset($_SESSION['usuario'])) {
     header("Location: " . BASE_URL . "/src/vista/public/perfil.php");
 }
@@ -45,7 +45,7 @@ if (isset($_SESSION['usuario'])) {
 
                 <div class="login-links">
                     <a href="#">¿Olvidaste tu contraseña?</a>
-                    <a href="<?= BASE_URL ?>/src/vista/public/registro.php">Regístrate aquí</a>
+                    <a href="<?= BASE_URL ?>/vista/public/registro.php">Regístrate aquí</a>
                 </div>
             </form>
         </div>

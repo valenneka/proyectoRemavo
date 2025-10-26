@@ -248,9 +248,47 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 1366px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .cart-panel {
+        padding: 15px;
+    }
+
+    .summary-panel {
+        padding: 25px;
+    }
+
+    .cart-title {
+        font-size: 22px;
+    }
+
+    .summary-title {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .summary-panel {
+        flex: none;
+        width: 100%;
+    }
+
+    .cart-panel {
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
+        padding: 0 10px;
     }
 
     .summary-panel {

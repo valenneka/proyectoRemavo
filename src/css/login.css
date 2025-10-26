@@ -8,7 +8,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 0; 
+    padding: 60px 20px; 
     min-height: calc(100vh - 160px);
 }
 
@@ -20,6 +20,8 @@ h2 {
 
 .login-container {
     text-align: center;
+    width: 100%;
+    max-width: 600px;
 }
 
 .login-box {
@@ -29,8 +31,9 @@ h2 {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 20px; 
-    width: 60em; 
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
 }
 
 .login-box label {
@@ -82,4 +85,50 @@ h2 {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1366px) {
+    .login-box {
+        max-width: 500px;
+        padding: 40px 30px;
+    }
+    
+    h2 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-page {
+        padding: 40px 15px;
+    }
+    
+    .login-box {
+        padding: 30px 20px;
+        max-width: 100%;
+    }
+    
+    h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .login-box input,
+    .login-box button {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-links {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .login-box {
+        padding: 25px 15px;
+    }
 }

@@ -1,0 +1,709 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .contenedor-carrusel {
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 0;
+            padding: 30px 60px;
+        }
+
+        .encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 0 10px;
+        }
+
+        .titulo {
+            color: #ff6b35;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .linea-naranja {
+            height: 3px;
+            background: #ff6b35;
+            width: 80px;
+            margin-top: 5px;
+        }
+
+        .iconos {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icono {
+            width: 35px;
+            height: 35px;
+            background: #ffc107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .icono:hover {
+            transform: scale(1.1);
+        }
+
+
+        /* Aseguramos estilo consistente para iconos; el botón crear-familia tendrá posicionamiento más alto */
+        .icono:first-child {
+            /* mantenemos por compatibilidad, pero preferimos estilos específicos */
+            background: #ffc107;
+        }
+
+        /* Estilo específico para el botón crear familia: símbolo blanco sobre fondo naranja */
+        .icono.crear-familia {
+            background: #ff6b35; /* naranja */
+            color: #ffffff; /* texto blanco */
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        .icono.crear-familia:hover {
+            transform: scale(1.12);
+        }
+
+        /* Mover el botón crear-familia ligeramente hacia arriba respecto al lápiz */
+        .icono.crear-familia {
+            transform: translateY(-6px);
+        }
+
+        /* Posicionar fijo el + en la parte superior derecha, por encima del menú */
+        .icono.crear-familia {
+            position: fixed;
+            top: 18px; /* ajustar para dejarlo más arriba */
+            right: 28px; /* ajustar separación del borde derecho */
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        /* Asegurar que el SVG sea blanco y visible */
+        .icono.crear-familia svg { display: block; }
+
+        /* Contenedor del carrusel */
+        .envolvedor-carrusel {
+            position: relative;
+            overflow: hidden;
+            padding: 0 50px;
+        }
+
+        .carrusel {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 10px 0;
+        }
+
+        .carrusel::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Tarjeta de pizza */
+        .tarjeta-pizza {
+            min-width: calc(33.333% - 10px);
+            background: white;
+            border-radius: 12px;
+            overflow: visible;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border: 2px solid #f0f0f0;
+        }
+
+        .tarjeta-pizza:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            border-color: #ff6b35;
+        }
+
+        .contenedor-imagen {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            overflow: visible;
+        }
+
+        .imagen-pizza {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110%;
+            height: 110%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-pizza:hover .imagen-pizza {
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        /* Botón de agregar al carrito */
+        .btn-agregar-carrito {
+            position: absolute;
+            bottom: 50%;
+            right: 10px;
+            transform: translateY(50%);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b35 0%, #e55a24 100%);
+            color: white;
+            border: 3px solid white;
+            font-size: 1.6em;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+            z-index: 3;
+            opacity: 0;
+        }
+
+        .tarjeta-pizza:hover .btn-agregar-carrito {
+            opacity: 1;
+            right: 10px;
+        }
+
+        .btn-agregar-carrito:hover {
+            background: linear-gradient(135deg, #e55a24 0%, #d44515 100%);
+            transform: translateY(50%) scale(1.15);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+            border-color: #fff;
+        }
+
+        .btn-agregar-carrito:active {
+            transform: translateY(50%) scale(0.95);
+        }
+
+        .etiqueta-editar {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ffc107;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            z-index: 2;
+        }
+
+        .informacion-pizza {
+            padding: 10px 5px 5px;
+            text-align: center;
+        }
+
+        .nombre-pizza {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .precio-pizza {
+            font-size: 1.3em;
+            color: #ff6b35;
+            font-weight: 700;
+        }
+
+        /* Botones de navegación */
+        .boton-navegacion {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffc107;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+            font-weight: bold;
+        }
+
+        .boton-navegacion:hover {
+            background: #ff6b35;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .boton-navegacion:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .boton-navegacion.anterior {
+            left: 5px;
+        }
+
+        .boton-navegacion.siguiente {
+            right: 5px;
+        }
+
+        /* Modal de pizza */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.705);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: aparecerModal 0.3s ease;
+        }
+
+        .modal.activo {
+            display: flex;
+        }
+
+        @keyframes aparecerModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .contenido-modal {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: deslizarArriba 0.3s ease;
+        }
+
+        @keyframes deslizarArriba {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .cerrar-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .cerrar-modal:hover {
+            color: #333;
+        }
+
+        .imagen-modal {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .descripcion-modal {
+            color: #666;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .boton-comprar {
+            width: 100%;
+            padding: 15px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .boton-comprar:hover {
+            background: #e55a2b;
+        }
+
+        /* Responsive: 8 productos en PC */
+        @media (min-width: 1024px) {
+            .tarjeta-pizza {
+                min-width: calc(12.5% - 14px);
+                max-width: calc(12.5% - 14px);
+                flex: 0 0 calc(12.5% - 14px);
+            }
+        }
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .tarjeta-pizza {
+                min-width: calc(25% - 12px);
+            }
+        }
+
+        /* ==================== SECCIÓN DE FAMILIAS/MENUS ==================== */
+        .seccion-familias {
+            max-width: 1600px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 30px 60px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-seccion-familias {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .titulo-seccion {
+            color: #ff6b35;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .crear-familia-btn {
+            width: 45px;
+            height: 45px;
+            background: #ff6b35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+
+        .crear-familia-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+        }
+
+        .crear-familia-btn svg {
+            stroke: white;
+        }
+
+        .contenedor-familias {
+            display: grid;
+            gap: 30px;
+        }
+
+        .tarjeta-familia {
+            background: white;
+            border-left: 5px solid #ff6b35;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .tarjeta-familia:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .familia-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .familia-nombre {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .familia-cantidad {
+            background: #ff6b35;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        /* Carrousel dentro de la tarjeta */
+        .familia-carrusel-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .familia-carrusel {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 15px 0;
+        }
+
+        .familia-carrusel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .familia-tarjeta-producto {
+            min-width: calc(12.5% - 14px);
+            max-width: calc(12.5% - 14px);
+            flex: 0 0 calc(12.5% - 14px);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border: 2px solid #f0f0f0;
+        }
+
+        .familia-tarjeta-producto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-color: #ff6b35;
+        }
+
+        .familia-producto-imagen {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+        }
+
+        .familia-producto-img {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110%;
+            height: 110%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .familia-tarjeta-producto:hover .familia-producto-img {
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .familia-producto-editar {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ffc107;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .familia-producto-info {
+            padding: 10px 5px 5px;
+            text-align: center;
+        }
+
+        .familia-producto-nombre {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .familia-producto-precio {
+            font-size: 1.2em;
+            color: #ff6b35;
+            font-weight: 700;
+        }
+
+        .familia-btn-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffc107;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: white;
+            font-weight: bold;
+        }
+
+        .familia-btn-nav:hover {
+            background: #ff6b35;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .familia-btn-nav.anterior {
+            left: 5px;
+        }
+
+        .familia-btn-nav.siguiente {
+            right: 5px;
+        }
+
+        .sin-productos-familia {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+            font-style: italic;
+        }
+
+        .familia-acciones {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn-familia {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-editar-familia {
+            background: #ffc107;
+            color: white;
+        }
+
+        .btn-editar-familia:hover {
+            background: #e6b000;
+            transform: scale(1.05);
+        }
+
+        .btn-eliminar-familia {
+            background: #c74444;
+            color: white;
+        }
+
+        .btn-eliminar-familia:hover {
+            background: #a63333;
+            transform: scale(1.05);
+        }
+
+        .sin-familias-msg {
+            text-align: center;
+            color: #999;
+            font-size: 1.1em;
+            padding: 30px;
+        }
+
+        /* Responsive para familias en tablet */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .familia-tarjeta-producto {
+                min-width: calc(25% - 12px);
+                max-width: calc(25% - 12px);
+                flex: 0 0 calc(25% - 12px);
+            }
+
+            .seccion-familias,
+            .contenedor-carrusel,
+            .contenido-tienda {
+                padding: 30px 40px;
+            }
+        }
+
+        /* Responsive para familias en móvil */
+        @media (max-width: 767px) {
+            .familia-tarjeta-producto {
+                min-width: calc(50% - 10px);
+                max-width: calc(50% - 10px);
+                flex: 0 0 calc(50% - 10px);
+            }
+
+            .seccion-familias {
+                padding: 20px;
+            }
+
+            .contenedor-carrusel,
+            .contenido-tienda {
+                padding: 20px;
+            }
+
+            .titulo-seccion {
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+
+            .familia-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .familia-acciones {
+                width: 100%;
+                flex-direction: row;
+            }
+
+            .btn-familia {
+                flex: 1;
+            }
+
+            .tarjeta-pizza {
+                min-width: calc(50% - 10px) !important;
+                max-width: calc(50% - 10px) !important;
+                flex: 0 0 calc(50% - 10px) !important;
+            }
+        }

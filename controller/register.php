@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO Usuarios (nombre, telefono, correo, direccion, contraseña, ID_Rol) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sisssi", $username, $telefono, $correo, $direccion, $hashed_password, $rol);
     if ($stmt->execute()) {
-        header("Location: " . BASE_URL . "/src/vista/public/login.php");
+        header("Location: " . BASE_URL . "/vista/public/login.php");
         exit();
     } else {
         die("Error al registrar el usuario: " . $stmt->error);
