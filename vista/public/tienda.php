@@ -11,37 +11,8 @@
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/modals.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/navbar.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/footer.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/tienda.css">
     <title>Pizzería Dominico - Tienda</title>
-    <style>
-        body {
-            background: #f5f5f5;
-        }
-        /* Ocultar elementos de edición en vista pública */
-        .editar-familia,
-        .etiqueta-editar {
-            display: none !important;
-        }
-        /* Estilos específicos para tienda pública */
-        .contenido-tienda {
-            max-width: 1600px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 30px 60px;
-        }
-        .titulo-tienda {
-            text-align: center;
-            margin: 30px 0;
-            color: #ff6b35;
-            font-size: 2em;
-            font-weight: 700;
-        }
-        .sin-familias {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-            font-size: 1.1em;
-        }
-    </style>
 </head>
 
 <body>
@@ -55,7 +26,9 @@
 
         <!-- Mensaje si no hay familias -->
         <div id="sinFamilias" class="sin-familias" style="display: none;">
-            No hay productos disponibles en este momento.
+            <h3 style="color: #ff6b35; margin-bottom: 15px; font-size: 1.5em;">¡Próximamente!</h3>
+            <p>Estamos preparando nuestros deliciosos productos para ti.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Vuelve pronto para descubrir nuestras especialidades.</p>
         </div>
     </div>
 
