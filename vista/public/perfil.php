@@ -15,6 +15,7 @@ $usuario = $_SESSION['usuario'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/images/Logo.svg">
     <title>Pizzería Dominico - Perfil</title>
 
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/footer.css">
@@ -87,22 +88,8 @@ $usuario = $_SESSION['usuario'];
 
                 <div class="form-group">
                     <label>Estado del Pedido:</label>
-                    <select id="estadoPedido" name="estado_pedido" class="form-control">
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="En proceso">En proceso</option>
-                        <option value="En camino">En camino</option>
-                        <option value="Entregado">Entregado</option>
-                        <option value="Cancelado">Cancelado</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Comentario:</label>
-                    <textarea id="comentarioPedido" 
-                              name="comentario" 
-                              class="form-control" 
-                              rows="3" 
-                              placeholder="Agrega un comentario o nota sobre el pedido"></textarea>
+                    <input type="text" id="estadoPedido" class="form-control" readonly>
+                    <small class="text-muted">Solo el administrador puede cambiar el estado</small>
                 </div>
 
                 <div class="form-group">
@@ -116,18 +103,22 @@ $usuario = $_SESSION['usuario'];
 
                 <div class="pedido-items">
                     <h4>Productos del Pedido</h4>
+                    <p class="text-muted">Puedes modificar las cantidades o eliminar productos</p>
                     <table class="items-table">
                         <thead>
                             <tr>
                                 <th>Comida</th>
-                                <th>Acción</th>
-                                <th>Total</th>
+                                <th>Cantidad</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="pedidoItemsTable">
                             <!-- Se llenará dinámicamente -->
                         </tbody>
                     </table>
+                    <button type="button" class="btn-agregar-producto" onclick="agregarProducto()">
+                        + Agregar Producto
+                    </button>
                 </div>
 
                 <div class="modal-actions">

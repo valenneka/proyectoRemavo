@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/images/Logo.svg">
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/carrouseles.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/modals.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/navbar.css">

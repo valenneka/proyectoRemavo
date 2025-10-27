@@ -152,7 +152,7 @@ async function fetchFamilias() {
                     </div>
                     <div class="informacion-pizza" data-id="${pizza.id}">
                         <div class="nombre-pizza">${pizza.nombre}</div>
-                        <div class="precio-pizza">${pizza.precio}</div>
+                        <div class="precio-pizza">$ ${pizza.precio}</div>
                     </div>
                 `;
 
@@ -195,7 +195,7 @@ async function fetchFamilias() {
             document.getElementById('imagenModal').src = pizzaSeleccionada.imagen;
             document.getElementById('nombreModal').textContent = pizzaSeleccionada.nombre;
             document.getElementById('descripcionModal').textContent = pizzaSeleccionada.descripcion;
-            document.getElementById('precioModal').textContent = pizzaSeleccionada.precio;
+            document.getElementById('precioModal').textContent = '$ ' + pizzaSeleccionada.precio;
             modal.classList.add('activo');
         }
 
@@ -207,7 +207,7 @@ async function fetchFamilias() {
 
         // Función para simular la compra
         function comprarPizza() {
-            alert(`¡Pizza "${pizzaSeleccionada.nombre}" agregada al carrito!\nPrecio: ${pizzaSeleccionada.precio}`);
+            alert(`¡Pizza "${pizzaSeleccionada.nombre}" agregada al carrito!\nPrecio: $ ${pizzaSeleccionada.precio}`);
             cerrarModal();
         }
 
@@ -420,7 +420,7 @@ async function fetchFamilias() {
                 leftPart.style.flex = '1';
                 leftPart.innerHTML = `
                     <input type="checkbox" data-id="${pid}" ${checked ? 'checked' : ''}>
-                    <span>${prod.nombre} (${prod.precio})</span>
+                    <span>${prod.nombre} ($ ${prod.precio})</span>
                 `;
 
                 const editBtn = document.createElement('button');
@@ -582,7 +582,7 @@ async function fetchFamilias() {
                                         </div>
                                         <div class="familia-producto-info" onclick="abrirModalById(${p.id})">
                                             <div class="familia-producto-nombre">${p.nombre}</div>
-                                            <div class="familia-producto-precio">$${p.precio}</div>
+                                            <div class="familia-producto-precio">$ ${p.precio}</div>
                                         </div>
                                     </div>
                                 `).join('')}

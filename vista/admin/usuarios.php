@@ -10,6 +10,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['ID_Rol'] != 3) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="<?php echo BASE_URL; ?>/images/Logo.svg">
     <title>Pizzería Dominico - Usuarios</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/src/css/usuarios.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/src/css/slidebarAdmin.css">

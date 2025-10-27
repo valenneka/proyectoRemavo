@@ -4,6 +4,39 @@ body {
     background-color: #EEF2FF;
 }
 
+/* Estilos para cuando no hay pedidos */
+.no-pedido-section {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.no-pedido {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.no-pedido-sub {
+    font-size: 16px;
+    color: #999;
+    margin-bottom: 30px;
+}
+
+.btn-ir-tienda {
+    display: inline-block;
+    background: #ff6b35;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.btn-ir-tienda:hover {
+    background: #e55a24;
+}
+
 .profile-page {
     display: flex;
     justify-content: center;
@@ -512,4 +545,62 @@ h2 {
     .edit-direccion-btn {
         align-self: flex-end;
     }
+}
+
+/* Estilos para modificación de pedidos */
+.cantidad-input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.btn-eliminar-producto {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-eliminar-producto:hover {
+    background: #c82333;
+}
+
+.btn-agregar-producto {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-agregar-producto:hover {
+    background: #218838;
+}
+
+.text-muted {
+    color: #6c757d;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.cancelar-pedido-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+.cancelar-pedido-btn:hover {
+    background: #c82333;
 }

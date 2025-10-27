@@ -22,11 +22,10 @@ if (!$data) {
 }
 
 $pedidoId = $data['pedido_id'] ?? null;
-$estadoPedido = $data['estado_pedido'] ?? null;
-$notas = $data['notas'] ?? '';
 $direccionEntrega = $data['direccion_entrega'] ?? null;
+$productos = $data['productos'] ?? [];
 
-if (!$pedidoId || !$estadoPedido || !$direccionEntrega) {
+if (!$pedidoId || !$direccionEntrega) {
     echo json_encode(['success' => false, 'msg' => 'Faltan campos obligatorios']);
     exit;
 }
@@ -49,22 +48,47 @@ try {
         exit;
     }
     
-    // Actualizar el pedido
-    $stmt2 = $conn->prepare("
-        UPDATE pedidos 
-        SET estado_pedido = ?, 
-            notas = ?, 
-            direccion_entrega = ? 
-        WHERE ID_Pedido = ?
-    ");
+    // Iniciar transacción
+    $conn->begin_transaction();
     
-    $stmt2->bind_param("sssi", $estadoPedido, $notas, $direccionEntrega, $pedidoId);
+    // Actualizar la dirección del pedido
+    $stmt2 = $conn->prepare("UPDATE pedidos SET direccion_entrega = ? WHERE ID_Pedido = ?");
+    $stmt2->bind_param("si", $direccionEntrega, $pedidoId);
+    $stmt2->execute();
+    $stmt2->close();
     
-    if ($stmt2->execute()) {
-        echo json_encode(['success' => true, 'msg' => 'Pedido actualizado correctamente']);
-    } else {
-        echo json_encode(['success' => false, 'msg' => 'Error al actualizar el pedido']);
+    // Eliminar productos actuales del pedido
+    $stmt3 = $conn->prepare("DELETE FROM contiene WHERE ID_Pedido = ?");
+    $stmt3->bind_param("i", $pedidoId);
+    $stmt3->execute();
+    $stmt3->close();
+    
+    // Insertar productos modificados
+    if (!empty($productos)) {
+        foreach ($productos as $producto) {
+            // Obtener ID del producto por nombre
+            $stmt4 = $conn->prepare("SELECT ID_Producto FROM productos WHERE nombre_producto = ?");
+            $stmt4->bind_param("s", $producto['nombre_producto']);
+            $stmt4->execute();
+            $result4 = $stmt4->get_result();
+            
+            if ($row4 = $result4->fetch_assoc()) {
+                $productoId = $row4['ID_Producto'];
+                $cantidad = $producto['cantidad'];
+                
+                // Insertar en contiene
+                $stmt5 = $conn->prepare("INSERT INTO contiene (ID_Pedido, ID_Producto, cantidad) VALUES (?, ?, ?)");
+                $stmt5->bind_param("iii", $pedidoId, $productoId, $cantidad);
+                $stmt5->execute();
+                $stmt5->close();
+            }
+            $stmt4->close();
+        }
     }
+    
+    // Commit transacción
+    $conn->commit();
+    echo json_encode(['success' => true, 'msg' => 'Pedido actualizado correctamente']);
     
     $stmt->close();
     $stmt2->close();

@@ -14,6 +14,7 @@ if (!isset($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/images/Logo.svg">
     <title>Pizzería Dominico - Carrito</title>
 
     <link rel="stylesheet" href="<?= BASE_URL ?>/src/css/footer.css">
@@ -680,15 +681,9 @@ if (!isset($_SESSION['usuario'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="telefono">Teléfono de Contacto *</label>
-                        <input type="tel" id="telefono" name="telefono" required
+                        <label for="telefono">Teléfono de Contacto</label>
+                        <input type="tel" id="telefono" name="telefono"
                                placeholder="+54 9 11 1234-5678">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="notas">Notas adicionales (Opcional)</label>
-                        <textarea id="notas" name="notas" rows="2"
-                                  placeholder="Ej: Timbre roto, llamar por teléfono"></textarea>
                     </div>
                 </div>
 
@@ -744,6 +739,7 @@ if (!isset($_SESSION['usuario'])) {
     <?php include(__DIR__ . '/../components/footer.php'); ?>
 
     <script>window.BASE_URL = '<?= BASE_URL ?>';</script>
+    <script>window.usuarioData = <?= json_encode($_SESSION['usuario'] ?? []) ?>;</script>
     <script src="<?= BASE_URL ?>/src/js/carritoHandler.js"></script>
     <script src="<?= BASE_URL ?>/src/js/checkoutHandler.js"></script>
 
