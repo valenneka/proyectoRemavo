@@ -60,7 +60,7 @@ async function abrirModalById(productId) {
     document.getElementById('imagenModal').src = pizzaSeleccionada.imagen;
     document.getElementById('nombreModal').textContent = pizzaSeleccionada.nombre;
     document.getElementById('descripcionModal').textContent = pizzaSeleccionada.descripcion;
-    document.getElementById('precioModal').textContent = pizzaSeleccionada.precio;
+    document.getElementById('precioModal').textContent = '$ ' + pizzaSeleccionada.precio;
     modal.classList.add('activo');
 }
 
@@ -159,7 +159,7 @@ async function renderFamilies() {
                         </div>
                         <div class="informacion-pizza" data-id="${pizza.id}">
                             <div class="nombre-pizza">${pizza.nombre}</div>
-                            <div class="precio-pizza">${pizza.precio}</div>
+                            <div class="precio-pizza">$ ${pizza.precio}</div>
                         </div>
                     `;
 

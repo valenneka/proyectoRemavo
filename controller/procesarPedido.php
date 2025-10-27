@@ -28,13 +28,17 @@ if ($method === 'POST') {
     // Obtener datos del formulario
     $direccion = $conn->real_escape_string($input['direccion'] ?? '');
     $telefono = $conn->real_escape_string($input['telefono'] ?? '');
-    $notas = $conn->real_escape_string($input['notas'] ?? '');
     $metodoPago = $conn->real_escape_string($input['metodo_pago'] ?? 'Efectivo');
 
     // Validar datos requeridos
-    if (empty($direccion) || empty($telefono)) {
-        echo json_encode(['success' => false, 'msg' => 'Dirección y teléfono son requeridos']);
+    if (empty($direccion)) {
+        echo json_encode(['success' => false, 'msg' => 'Dirección es requerida']);
         exit;
+    }
+
+    // Si no se proporciona teléfono, usar el del usuario de la sesión
+    if (empty($telefono)) {
+        $telefono = $_SESSION['usuario']['telefono'] ?? '';
     }
 
     // Obtener carrito de la sesión
@@ -88,9 +92,9 @@ if ($method === 'POST') {
     $conn->begin_transaction();
 
     try {
-        // Insertar pedido (solo con ID_Usuario, direccion_entrega, telefono_contacto, notas)
-        $sqlPedido = "INSERT INTO pedidos (ID_Usuario, direccion_entrega, telefono_contacto, notas)
-                      VALUES ({$userId}, '{$direccion}', '{$telefono}', '{$notas}')";
+        // Insertar pedido con valores por defecto
+        $sqlPedido = "INSERT INTO pedidos (ID_Usuario, direccion_entrega, estado_pedido, fecha_pedido)
+                      VALUES ({$userId}, '{$direccion}', 'Pendiente', NOW())";
 
         if (!$conn->query($sqlPedido)) {
             throw new Exception('Error al crear el pedido: ' . $conn->error);
@@ -98,13 +102,13 @@ if ($method === 'POST') {
 
         $pedidoId = $conn->insert_id;
 
-        // Insertar detalles del pedido
-        foreach ($orderItems as $item) {
-            $sqlDetalle = "INSERT INTO detalle_pedido (ID_Pedido, ID_Producto, cantidad, precio_unitario, subtotal)
-                           VALUES ({$pedidoId}, {$item['ID_Producto']}, {$item['cantidad']}, {$item['precio_unitario']}, {$item['subtotal']})";
-
-            if (!$conn->query($sqlDetalle)) {
-                throw new Exception('Error al agregar detalles del pedido');
+        // Guardar productos del pedido en la tabla contiene
+        if (isset($_SESSION['carrito']) && !empty($_SESSION['carrito'])) {
+            foreach ($_SESSION['carrito'] as $productId => $cantidad) {
+                $stmtContiene = $conn->prepare("INSERT INTO contiene (ID_Pedido, ID_Producto, cantidad) VALUES (?, ?, ?)");
+                $stmtContiene->bind_param("iii", $pedidoId, $productId, $cantidad);
+                $stmtContiene->execute();
+                $stmtContiene->close();
             }
         }
 
@@ -119,7 +123,7 @@ if ($method === 'POST') {
         // Commit transaction
         $conn->commit();
 
-        // Vaciar carrito
+        // Limpiar carrito después de procesar el pedido
         $_SESSION['carrito'] = [];
 
         echo json_encode([

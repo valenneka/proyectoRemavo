@@ -249,12 +249,12 @@ async function actualizarVistaCarrito() {
                     <img src="${imagenURL}" alt="${item.nombre_producto}" class="product-image">
                     <span class="product-name">${item.nombre_producto}</span>
                 </div>
-                <div class="product-price">$${parseFloat(item.precio_unitario).toFixed(2)}</div>
+                <div class="product-price">$ ${parseFloat(item.precio_unitario).toFixed(2)}</div>
                 <div class="product-quantity">
                     <input type="number" min="1" value="${item.cantidad}"
                         onchange="actualizarCantidadCarrito(${item.ID_Producto}, this.value)">
                 </div>
-                <div class="product-subtotal">$${parseFloat(item.subtotal).toFixed(2)}</div>
+                <div class="product-subtotal">$ ${parseFloat(item.subtotal).toFixed(2)}</div>
                 <div class="product-actions">
                     <button onclick="removerDelCarrito(${item.ID_Producto})" class="btn-eliminar">
                         <img src="${window.BASE_URL}/images/trash.svg" alt="Eliminar">
@@ -276,7 +276,7 @@ async function actualizarVistaCarrito() {
         summaryHTML += `
             <div class="summary-item">
                 <span>${item.nombre_producto} x${item.cantidad}</span>
-                <span class="price">$${parseFloat(item.subtotal).toFixed(2)}</span>
+                <span class="price">$ ${parseFloat(item.subtotal).toFixed(2)}</span>
             </div>
         `;
     });
@@ -284,7 +284,7 @@ async function actualizarVistaCarrito() {
     summaryHTML += `
         <div class="summary-total">
             <span>Coste Total</span>
-            <span class="price">$${parseFloat(cart.total).toFixed(2)}</span>
+            <span class="price">$ ${parseFloat(cart.total).toFixed(2)}</span>
         </div>
         <button class="btn-vaciar-carrito" onclick="vaciarCarrito()">Vaciar Carrito</button>
     `;

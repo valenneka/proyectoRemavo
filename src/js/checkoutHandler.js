@@ -38,13 +38,13 @@ async function abrirCheckout() {
                 <div class="resumen-item-name">${item.nombre_producto}</div>
                 <div class="resumen-item-cantidad">Cantidad: ${item.cantidad}</div>
             </div>
-            <div class="price">$${item.subtotal.toFixed(2)}</div>
+            <div class="price">$ ${item.subtotal.toFixed(2)}</div>
         `;
         resumenContainer.appendChild(resumenItem);
     });
 
     // Actualizar total
-    document.getElementById('totalCheckout').textContent = `$${cart.total.toFixed(2)}`;
+    document.getElementById('totalCheckout').textContent = `$ ${cart.total.toFixed(2)}`;
 
     // Prellenar datos del usuario si están disponibles
     const usuario = window.usuarioData || {};
@@ -53,6 +53,12 @@ async function abrirCheckout() {
     }
     if (usuario.direccion) {
         document.getElementById('direccion').value = usuario.direccion;
+    }
+    
+    // Si no hay teléfono del usuario, hacer el campo requerido
+    if (!usuario.telefono) {
+        document.getElementById('telefono').required = true;
+        document.querySelector('label[for="telefono"]').innerHTML = 'Teléfono de Contacto *';
     }
 
     // Mostrar modal
@@ -83,13 +89,12 @@ async function procesarPedido(event) {
     const formData = {
         direccion: document.getElementById('direccion').value.trim(),
         telefono: document.getElementById('telefono').value.trim(),
-        notas: document.getElementById('notas').value.trim(),
         metodo_pago: metodoPagoSeleccionado ? metodoPagoSeleccionado.value : 'Efectivo'
     };
 
     // Validar datos
-    if (!formData.direccion || !formData.telefono) {
-        alert('Por favor completa todos los campos requeridos');
+    if (!formData.direccion) {
+        alert('Por favor completa la dirección de entrega');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Confirmar Pedido';
         return;

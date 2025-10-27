@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>/images/Logo.svg">
     <title>Pizzería Dominico</title>
     <link rel="stylesheet" href="src/css/footer.css">
     <link rel="stylesheet" href="src/css/navbar.css">
