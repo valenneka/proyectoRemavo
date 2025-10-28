@@ -1,11 +1,4 @@
-// Manejador de carrito para usuarios autenticados
-// Este archivo contiene funciones para agregar, remover y actualizar el carrito
-
-/**
- * Agregar un producto al carrito
- * @param {number} productId - ID del producto
- * @param {number} cantidad - Cantidad a agregar (default: 1)
- */
+// Esta función agrega productos al carrito cuando el usuario hace clic en el botón
 async function agregarAlCarrito(productId, cantidad = 1) {
     try {
         const response = await fetch(window.BASE_URL + '/controller/carrito.php', {
@@ -50,10 +43,7 @@ async function agregarAlCarrito(productId, cantidad = 1) {
     }
 }
 
-/**
- * Remover un producto del carrito
- * @param {number} productId - ID del producto a remover
- */
+// Aquí quito productos del carrito cuando el usuario hace clic en eliminar
 async function removerDelCarrito(productId) {
     try {
         const response = await fetch(window.BASE_URL + '/controller/carrito.php', {
@@ -84,11 +74,7 @@ async function removerDelCarrito(productId) {
     }
 }
 
-/**
- * Actualizar la cantidad de un producto en el carrito
- * @param {number} productId - ID del producto
- * @param {number} cantidad - Nueva cantidad
- */
+// Cambio la cantidad de productos en el carrito cuando el usuario modifica el número
 async function actualizarCantidadCarrito(productId, cantidad) {
     try {
         const response = await fetch(window.BASE_URL + '/controller/carrito.php', {
@@ -119,10 +105,7 @@ async function actualizarCantidadCarrito(productId, cantidad) {
     }
 }
 
-/**
- * Obtener el carrito actual
- * @returns {Object} - Objeto con items y total del carrito
- */
+// Obtengo todos los productos que están en el carrito del usuario
 async function obtenerCarrito() {
     try {
         const response = await fetch(window.BASE_URL + '/controller/carrito.php', {
@@ -148,9 +131,7 @@ async function obtenerCarrito() {
     }
 }
 
-/**
- * Vaciar el carrito
- */
+// Borro todo el carrito cuando el usuario confirma que quiere vaciarlo
 async function vaciarCarrito() {
     if (!confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
         return;
@@ -184,10 +165,7 @@ async function vaciarCarrito() {
     }
 }
 
-/**
- * Actualizar badge del carrito en la navbar
- * @param {number} cantidad - Cantidad de items
- */
+// Actualizo el número que aparece en el ícono del carrito en la barra de navegación
 function actualizarBadgeCarrito(cantidad) {
     const badge = document.querySelector('.cart-badge');
     if (badge) {
@@ -200,9 +178,7 @@ function actualizarBadgeCarrito(cantidad) {
     }
 }
 
-/**
- * Actualizar la vista del carrito (carrito.php)
- */
+// Refresco toda la página del carrito para mostrar los productos actualizados
 async function actualizarVistaCarrito() {
     const cartTable = document.querySelector('.cart-table');
     const summaryPanel = document.querySelector('.summary-panel');
@@ -298,16 +274,12 @@ async function actualizarVistaCarrito() {
     summaryPanel.innerHTML = summaryHTML;
 }
 
-// Alias para cargarCarrito
+// Esta es otra forma de llamar a la función anterior, la uso en algunos lugares
 async function cargarCarrito() {
     await actualizarVistaCarrito();
 }
 
-/**
- * Mostrar notificación al usuario
- * @param {string} mensaje - Mensaje a mostrar
- * @param {string} tipo - 'success', 'error', 'info'
- */
+// Muestro mensajes al usuario cuando pasa algo (éxito, error, etc.)
 function mostrarNotificacion(mensaje, tipo = 'info') {
     const notif = document.createElement('div');
     notif.className = `notificacion notificacion-${tipo}`;
@@ -332,12 +304,12 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
     }, 3000);
 }
 
-// Cargar vista del carrito cuando la página carga
+// Cuando carga la página del carrito, automáticamente muestro los productos
 if (document.querySelector('.cart-table')) {
     actualizarVistaCarrito();
 }
 
-// Agregar estilos de animación
+// Aquí agrego los estilos CSS para que las animaciones se vean bien
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
