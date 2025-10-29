@@ -1,0 +1,89 @@
+/* Estilos específicos para la página de tienda */
+
+body {
+    background: #f5f5f5;
+}
+
+/* Ocultar elementos de edición en vista pública */
+.editar-familia,
+.etiqueta-editar {
+    display: none !important;
+}
+
+/* Estilos específicos para tienda pública */
+.contenido-tienda {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 60px;
+    min-height: calc(100vh - 200px); /* Asegurar altura mínima para empujar footer */
+}
+
+.titulo-tienda {
+    text-align: center;
+    margin: 30px 0;
+    color: #ff6b35;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.sin-familias {
+    text-align: center;
+    padding: 60px 40px;
+    color: #999;
+    font-size: 1.2em;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px 0;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1366px) {
+    .contenido-tienda {
+        padding: 25px 40px;
+    }
+    
+    .titulo-tienda {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenido-tienda {
+        padding: 20px 20px;
+        min-height: calc(100vh - 180px);
+    }
+    
+    .titulo-tienda {
+        font-size: 1.6em;
+        margin: 20px 0;
+    }
+    
+    .sin-familias {
+        padding: 40px 20px;
+        font-size: 1.1em;
+        margin: 20px 0;
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenido-tienda {
+        padding: 15px 15px;
+    }
+    
+    .titulo-tienda {
+        font-size: 1.4em;
+    }
+    
+    .sin-familias {
+        padding: 30px 15px;
+        font-size: 1em;
+    }
+}
