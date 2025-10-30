@@ -24,23 +24,23 @@ require_once(__DIR__ . '/../../config.php');
         <div class="login-container">
             <h2>Registro de Usuario</h2>
             <form class="login-box" action="<?= BASE_URL ?>/controller/register.php" method="post">
-                <label for="username">Nombre</label>
-                <input type="text" id="username" name="username" placeholder="(*)" required>
+                <label for="username" class="required">Nombre</label>
+                <input type="text" id="username" name="username" placeholder="Nombre completo" required>
 
-                <label for="telefono">Teléfono</label>
-                <input type="number" id="telefono" name="telefono" placeholder="(*)" required>
+                <label for="telefono" class="required">Teléfono</label>
+                <input type="number" id="telefono" name="telefono" placeholder="099999999" required>
 
-                <label for="correo">Correo</label>
-                <input type="text" id="correo" name="correo" placeholder="(*)" required>
+                <label for="correo" class="required">Correo</label>
+                <input type="text" id="correo" name="correo" placeholder="usuario@gmail.com" required>
 
-                <label for="direccion">Direccion</label>
-                <input type="text" id="direccion" name="direccion" placeholder="(*)" required>
+                <label for="direccion" class="required">Direccion</label>
+                <input type="text" id="direccion" name="direccion" placeholder="Calle 123" required>
 
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="(*)" required>
+                <label for="password" class="required">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="********" required>
 
-                <label for="confirm_password">Repetir Contraseña</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="(*)" required>
+                <label for="confirm_password" class="required">Repetir Contraseña</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="********" required>
 
                 <button type="submit">Registrarse</button>
 

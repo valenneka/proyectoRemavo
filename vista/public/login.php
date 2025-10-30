@@ -36,11 +36,11 @@ if (isset($_SESSION['usuario'])) {
                     </div>
                 <?php endif; ?>
 
-                <label for="correo">Correo</label>
-                <input type="text" id="correo" name="correo" placeholder="(*)" required>
+                <label for="correo" class="required">Correo</label>
+                <input type="text" id="correo" name="correo" placeholder="usuario@gmail.com" required>
 
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="(*)" required>
+                <label for="password" class="required">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="********" required>
 
                 <button type="submit">Entrar</button>
 

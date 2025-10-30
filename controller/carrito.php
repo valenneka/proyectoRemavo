@@ -121,6 +121,7 @@ if ($method === 'POST') {
             exit;
         }
 
+
         // Agregar o actualizar en carrito
         if (isset($_SESSION['carrito'][$productId])) {
             $_SESSION['carrito'][$productId] += $cantidad;
