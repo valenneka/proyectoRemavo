@@ -49,6 +49,12 @@ h2 {
     color: #333;
 }
 
+/* Asterisco para campos obligatorios */
+.login-box label.required::after {
+    content: " *";
+    color: #e02424;
+}
+
 .login-box input {
     padding: 14px;
     font-size: 15px;

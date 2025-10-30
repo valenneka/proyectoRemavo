@@ -7,7 +7,6 @@ $database = "pizzeriaDominico";
 $conn = new mysqli($host, $user, $password, $database);
 
 if ($conn->connect_error) {
-    // Comprobar si ya se ha enviado el header Content-Type
     $headers = headers_list();
     $hasJsonHeader = false;
     foreach ($headers as $header) {
@@ -16,7 +15,6 @@ if ($conn->connect_error) {
             break;
         }
     }
-
     // Si no tiene header JSON, establecerlo
     if (!$hasJsonHeader) {
         header('Content-Type: application/json; charset=utf-8');

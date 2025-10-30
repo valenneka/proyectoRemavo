@@ -11,6 +11,91 @@ h1 {
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 body, h1, table, .acierto-message, .error-message { font-family: 'Open Sans', Arial, sans-serif; }
 
+/* ==== Modal de Usuario ==== */
+.usuario-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.usuario-modal-content {
+    background: #ffffff;
+    width: 95%;
+    max-width: 520px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    padding: 20px 22px;
+}
+
+.usuario-modal-content h3 {
+    margin: 0 0 12px 0;
+    color: #2c3e50;
+}
+
+.usuario-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.usuario-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.usuario-form label {
+    font-size: 13px;
+    color: #34495e;
+    margin-bottom: 4px;
+}
+
+.usuario-form input,
+.usuario-form select,
+.usuario-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fafafa;
+}
+
+.usuario-form input:focus,
+.usuario-form select:focus,
+.usuario-form textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+    background: #fff;
+}
+
+.usuario-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.btn-secondary,
+.btn-primary {
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-secondary { background: #ecf0f1; color: #2c3e50; }
+.btn-secondary:hover { background: #e2e6e9; }
+
+.btn-primary { background: #3498db; color: #ffffff; }
+.btn-primary:hover { background: #2980b9; }
+
 /* ==== Mensajes ==== */
 .acierto-message {
     margin-left: calc(var(--sidebar-width, 200px) + 60px);
@@ -71,6 +156,29 @@ tbody td {
 .acciones {
     display: flex;
     gap: 10px;
+}
+
+/* Asegurar estilos para el contenedor usado en la tabla */
+.acciones-usuario {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Botón de editar (lápiz) visible y clickeable */
+.btn-editar-icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-editar-icon img {
+    width: 18px;
+    height: 18px;
 }
 
 .btn-eliminar-icon {
