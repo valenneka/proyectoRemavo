@@ -43,6 +43,8 @@ function renderizarPedido(pedido) {
     const estado = pedido.estado_pedido || 'Sin estado';
     const estadoClass = estado.toLowerCase().replace(/ /g, '-');
     
+    // TODO: Arreglar funcionalidad de edición de pedidos en próxima feature
+    // Temporariamente ocultado porque no funciona correctamente
     orderCard.innerHTML = `
         <h3 class="order-header">Último pedido:</h3>
         
@@ -51,11 +53,13 @@ function renderizarPedido(pedido) {
                 <span class="section-title">Comida</span>
                 <span class="status-badge ${estadoClass}">${estado}</span>
                 ${estado === 'Pendiente' ? `
+                    ${/* TODO: Arreglar funcionalidad de edición de pedidos en próxima feature - Temporariamente desactivado */ false ? `
                     <button class="edit-pedido-btn" onclick="abrirModalPedido()" title="Editar pedido">
                         <svg class="edit-svg" viewBox="0 0 24 24">
                             <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
                         </svg>
                     </button>
+                    ` : ''}
                     <button class="cancelar-pedido-btn" onclick="cancelarPedido()" title="Cancelar pedido">
                         ❌
                     </button>

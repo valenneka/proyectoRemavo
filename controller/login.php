@@ -9,6 +9,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar los datos del formulario
     if (empty($correo) || empty($password)) {
         $_SESSION["error"] = "Por favor, completa todos los campos.";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
+    }
+    
+    // Validar formato del correo y longitud
+    $correo = trim($correo);
+    if (strlen($correo) < 5 || strlen($correo) > 254) {
+        $_SESSION["error"] = "El correo debe tener entre 5 y 254 caracteres.";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
+    }
+    // Verificar que tenga @
+    if (strpos($correo, '@') === false) {
+        $_SESSION["error"] = "El correo debe contener el símbolo @.";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
+    }
+    // Validar formato completo del email
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION["error"] = "Correo electrónico no válido. Debe tener un formato válido (ejemplo: usuario@gmail.com).";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
+    }
+    // Validar que tenga un dominio válido después del @
+    $partes = explode('@', $correo);
+    if (count($partes) !== 2) {
+        $_SESSION["error"] = "El correo debe tener exactamente un símbolo @.";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
+    }
+    $dominio = trim($partes[1]);
+    if (empty($dominio)) {
+        $_SESSION["error"] = "El correo debe tener un dominio después del @ (ejemplo: gmail.com).";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
+    }
+    // Verificar que el dominio tenga al menos un punto (ej: gmail.com, hotmail.com)
+    if (strpos($dominio, '.') === false) {
+        $_SESSION["error"] = "El dominio debe tener un formato válido (ejemplo: usuario@gmail.com).";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
+    }
+    // Verificar que el dominio no termine en punto
+    if (substr($dominio, -1) === '.') {
+        $_SESSION["error"] = "El dominio no puede terminar en punto.";
+        header("Location: " . BASE_URL . "/vista/public/login.php");
+        exit;
     }
 
     // Buscar usuario por correo

@@ -31,7 +31,7 @@ require_once(__DIR__ . '/../../config.php');
                 <input type="number" id="telefono" name="telefono" placeholder="099999999" required>
 
                 <label for="correo" class="required">Correo</label>
-                <input type="text" id="correo" name="correo" placeholder="usuario@gmail.com" required>
+                <input type="email" id="correo" name="correo" placeholder="usuario@gmail.com" minlength="5" maxlength="254" required>
 
                 <label for="direccion" class="required">Direccion</label>
                 <input type="text" id="direccion" name="direccion" placeholder="Calle 123" required>

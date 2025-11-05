@@ -3,10 +3,10 @@ require_once('../config.php');
 include('conexionDB.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $telefono = $_POST['telefono'];
-    $correo = $_POST['correo'];
-    $direccion = $_POST['direccion'];
+    $username = trim($_POST['username']);
+    $telefono = trim($_POST['telefono']);
+    $correo = trim($_POST['correo']);
+    $direccion = trim($_POST['direccion']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $rol = 1;
@@ -16,9 +16,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Todos los campos son obligatorios.");
     }
 
-    // Validar formato del correo
+    // Validar formato del correo y longitud
+    if (strlen($correo) < 5 || strlen($correo) > 254) {
+        die("El correo debe tener entre 5 y 254 caracteres.");
+    }
+    // Verificar que tenga @
+    if (strpos($correo, '@') === false) {
+        die("El correo debe contener el símbolo @.");
+    }
+    // Validar formato completo del email
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
-        die("Correo electrónico no válido.");
+        die("Correo electrónico no válido. Debe tener un formato válido (ejemplo: usuario@gmail.com).");
+    }
+    // Validar que tenga un dominio válido después del @
+    $partes = explode('@', $correo);
+    if (count($partes) !== 2) {
+        die("El correo debe tener exactamente un símbolo @.");
+    }
+    $dominio = trim($partes[1]);
+    if (empty($dominio)) {
+        die("El correo debe tener un dominio después del @ (ejemplo: gmail.com).");
+    }
+    // Verificar que el dominio tenga al menos un punto (ej: gmail.com, hotmail.com)
+    if (strpos($dominio, '.') === false) {
+        die("El dominio debe tener un formato válido (ejemplo: usuario@gmail.com).");
+    }
+    // Verificar que el dominio no termine en punto
+    if (substr($dominio, -1) === '.') {
+        die("El dominio no puede terminar en punto.");
     }
 
     // Validar que las contraseñas coincidan
