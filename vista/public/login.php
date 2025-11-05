@@ -37,7 +37,7 @@ if (isset($_SESSION['usuario'])) {
                 <?php endif; ?>
 
                 <label for="correo" class="required">Correo</label>
-                <input type="text" id="correo" name="correo" placeholder="usuario@gmail.com" required>
+                <input type="email" id="correo" name="correo" placeholder="usuario@gmail.com" minlength="5" maxlength="254" required>
 
                 <label for="password" class="required">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="********" required>
