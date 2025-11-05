@@ -128,7 +128,8 @@ if (!isset($_SESSION['usuario']) || ($_SESSION['usuario']['ID_Rol'] != 3 && $_SE
                     </td>
                     <td>${pedido.direccion_entrega || 'Sin dirección'}</td>
                     <td>
-                        <button class="btn-accion btn-ver" onclick="verPedido(${pedido.ID_Pedido})">Ver</button>
+                        <button class="btn-accion btn-ver" onclick="verYEditarPedido(${pedido.ID_Pedido})">Ver y Editar</button>
+                        <button class="btn-accion btn-eliminar" onclick="eliminarPedido(${pedido.ID_Pedido})">Borrar</button>
                     </td>
                 </tr>
             `;
@@ -144,8 +145,8 @@ if (!isset($_SESSION['usuario']) || ($_SESSION['usuario']['ID_Rol'] != 3 && $_SE
             }
         }
         
-        async function verPedido(id) {
-            console.log('Intentando ver pedido ID:', id);
+        async function verYEditarPedido(id) {
+            console.log('Intentando ver y editar pedido ID:', id);
             try {
                 const url = `<?= BASE_URL ?>/controller/obtenerDetallesPedido.php?id=${id}`;
                 console.log('URL:', url);
@@ -161,13 +162,43 @@ if (!isset($_SESSION['usuario']) || ($_SESSION['usuario']['ID_Rol'] != 3 && $_SE
                 console.log('Data recibida:', data);
                 
                 if (data.success) {
-                    mostrarModalDetalles(data.pedido);
+                    mostrarModalDetallesEditables(data.pedido);
                 } else {
                     alert('Error: ' + data.msg);
                 }
             } catch (error) {
                 console.error('Error completo:', error);
                 alert('Error al cargar los detalles del pedido: ' + error.message);
+            }
+        }
+        
+        async function eliminarPedido(id) {
+            if (!confirm(`¿Estás seguro de eliminar el pedido #${id}? Esta acción no se puede deshacer.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`<?= BASE_URL ?>/controller/eliminarPedido.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pedido_id: id
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Pedido eliminado correctamente');
+                    cargarPedidos(); // Recargar la tabla
+                } else {
+                    alert('Error: ' + (data.msg || 'No se pudo eliminar el pedido'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al eliminar el pedido');
             }
         }
         
@@ -266,6 +297,133 @@ if (!isset($_SESSION['usuario']) || ($_SESSION['usuario']['ID_Rol'] != 3 && $_SE
             setTimeout(() => {
                 modal.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
+        }
+        
+        function mostrarModalDetallesEditables(pedido) {
+            const modal = document.getElementById('modalPedido');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <form id="formEditarPedido" onsubmit="guardarCambiosPedido(event, ${pedido.ID_Pedido})">
+                    <div class="pedido-detalles">
+                        <h3>Editar Pedido #${pedido.ID_Pedido}</h3>
+                        
+                        <div class="detalles-section">
+                            <h4>Información del Cliente</h4>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Nombre:</label>
+                                    <input type="text" value="${pedido.nombre_cliente || ''}" name="nombre_cliente" class="form-input" readonly>
+                                </div>
+                                <div class="info-item">
+                                    <label>Email:</label>
+                                    <input type="email" value="${pedido.correo_cliente || ''}" name="correo_cliente" class="form-input" readonly>
+                                </div>
+                                <div class="info-item">
+                                    <label>Teléfono:</label>
+                                    <input type="text" value="${pedido.telefono_cliente || ''}" name="telefono_cliente" class="form-input">
+                                </div>
+                                <div class="info-item">
+                                    <label>Dirección:</label>
+                                    <input type="text" value="${pedido.direccion_cliente || ''}" name="direccion_cliente" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detalles-section">
+                            <h4>Información del Pedido</h4>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Estado:</label>
+                                    <select name="estado_pedido" class="form-input">
+                                        <option value="Pendiente" ${pedido.estado_pedido === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                                        <option value="En proceso" ${pedido.estado_pedido === 'En proceso' ? 'selected' : ''}>En proceso</option>
+                                        <option value="En camino" ${pedido.estado_pedido === 'En camino' ? 'selected' : ''}>En camino</option>
+                                        <option value="Entregado" ${pedido.estado_pedido === 'Entregado' ? 'selected' : ''}>Entregado</option>
+                                        <option value="Cancelado" ${pedido.estado_pedido === 'Cancelado' ? 'selected' : ''}>Cancelado</option>
+                                    </select>
+                                </div>
+                                <div class="info-item">
+                                    <label>Fecha:</label>
+                                    <input type="text" value="${formatearFecha(pedido.fecha_pedido)}" class="form-input" readonly>
+                                </div>
+                                <div class="info-item">
+                                    <label>Dirección de Entrega:</label>
+                                    <input type="text" value="${pedido.direccion_entrega || ''}" name="direccion_entrega" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="detalles-section">
+                            <h4>Productos del Pedido</h4>
+                            <table class="productos-table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productosTableBody">
+                                    ${(pedido.productos || []).map((prod, index) => `
+                                        <tr>
+                                            <td>${prod.nombre_producto}</td>
+                                            <td>
+                                                <input type="number" name="productos[${index}][cantidad]" value="${prod.cantidad}" min="1" class="form-input" style="width: 80px;">
+                                                <input type="hidden" name="productos[${index}][nombre]" value="${prod.nombre_producto}">
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="modal-actions">
+                            <button type="button" class="btn-cerrar" onclick="cerrarModal()">Cancelar</button>
+                            <button type="submit" class="btn-guardar">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </form>
+            `;
+            
+            modal.style.display = 'block';
+        }
+        
+        async function guardarCambiosPedido(event, pedidoId) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            const datos = {
+                pedido_id: pedidoId,
+                estado_pedido: formData.get('estado_pedido'),
+                direccion_entrega: formData.get('direccion_entrega'),
+                telefono_cliente: formData.get('telefono_cliente'),
+                direccion_cliente: formData.get('direccion_cliente')
+            };
+            
+            try {
+                const response = await fetch('<?= BASE_URL ?>/controller/actualizarPedidoAdmin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(datos)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Pedido actualizado correctamente');
+                    cerrarModal();
+                    cargarPedidos();
+                } else {
+                    alert('Error: ' + (data.msg || 'No se pudo actualizar el pedido'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al actualizar el pedido');
+            }
         }
     </script>
 </body>

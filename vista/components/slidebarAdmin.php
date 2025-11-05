@@ -71,30 +71,34 @@ if (
     // Función para ajustar el margen del contenido
     const adjustContent = (closed) => {
         // Buscar elementos que necesitan ajuste de margen
+        const pedidosContainer = document.querySelector('.pedidos-container');
         const h1Elements = document.querySelectorAll('h1');
-        const tables = document.querySelectorAll('table');
         const messages = document.querySelectorAll('.acierto-message, .error-message');
         
-        const marginValue = closed ? '20px' : '260px';
-        
-        h1Elements.forEach(el => {
-            if (window.innerWidth > 768) {
-                el.style.marginLeft = marginValue;
+        if (window.innerWidth > 768) {
+            // Ajustar contenedor de pedidos
+            if (pedidosContainer) {
+                pedidosContainer.style.marginLeft = closed ? '0' : '250px';
+                pedidosContainer.style.padding = closed ? '20px 10px 20px 10px' : '20px 20px 20px 10px';
             }
-        });
-        
-        tables.forEach(el => {
-            if (window.innerWidth > 768) {
-                el.style.marginLeft = marginValue;
-                el.style.width = closed ? 'calc(100% - 40px)' : 'calc(100% - 280px)';
+            
+            // Ajustar otros elementos si es necesario
+            h1Elements.forEach(el => {
+                el.style.marginLeft = closed ? '20px' : '260px';
+            });
+            
+            messages.forEach(el => {
+                el.style.marginLeft = closed ? '20px' : '260px';
+            });
+        } else {
+            // En móvil, resetear estilos
+            if (pedidosContainer) {
+                pedidosContainer.style.marginLeft = '';
+                pedidosContainer.style.padding = '';
             }
-        });
-        
-        messages.forEach(el => {
-            if (window.innerWidth > 768) {
-                el.style.marginLeft = marginValue;
-            }
-        });
+            h1Elements.forEach(el => el.style.marginLeft = '');
+            messages.forEach(el => el.style.marginLeft = '');
+        }
     };
 
     // init: restablecer estado desde localStorage si existe
