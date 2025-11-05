@@ -1,8 +1,10 @@
-.pedidos-container { margin-left: 250px; padding: 20px; background: #f5f5f5; min-height: 100vh; }
+.pedidos-container { margin-left: 250px; padding: 20px 20px 20px 10px; background: #f5f5f5; min-height: 100vh; transition: margin-left 0.3s ease, padding 0.3s ease; }
 .pedidos-header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.pedidos-table { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.pedidos-table { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-left: 0; padding: 0; }
 table { width: 100%; border-collapse: collapse; }
-th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid #eee; }
+th:first-child, td:first-child { padding-left: 12px; }
+th:last-child, td:last-child { padding-right: 12px; }
 th { background: #f8f9fa; font-weight: 600; color: #333; }
 .estado-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; text-transform: uppercase; }
 .estado-pendiente { background: #fff3cd; color: #856404; }
@@ -38,4 +40,8 @@ th { background: #f8f9fa; font-weight: 600; color: #333; }
 .modal-content { position: relative; background-color: white; margin: 20px auto; padding: 20px; border-radius: 8px; max-width: 90%; max-height: 90vh; overflow-y: auto; }
 .close { position: absolute; top: 10px; right: 15px; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa; }
 .close:hover { color: #000; }
+.form-input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+.form-input:focus { outline: none; border-color: #007bff; }
+.btn-guardar { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; margin-left: 10px; }
+.btn-guardar:hover { background: #218838; }
 

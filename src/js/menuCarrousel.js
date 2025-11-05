@@ -15,63 +15,30 @@ let editingFamilyId = null;
 // Helpers que consultan el backend y normalizan datos
 async function fetchProductos() {
     try {
-        console.log('📡 Buscando productos desde:', window.BASE_URL + '/controller/productos.php');
         const res = await fetch(window.BASE_URL + '/controller/productos.php', {
-            credentials: 'include' // Incluir cookies de sesión
+            credentials: 'include'
         });
-
-        console.log('📥 Response status:', res.status);
-        const text = await res.text();
-        console.log('📥 Response text (primeros 200 chars):', text.substring(0, 200));
-
-        if (!text || text.trim() === '') {
-            console.warn('⚠️ Respuesta vacía de productos.php');
-            return [];
-        }
-
-        let j;
-        try {
-            j = JSON.parse(text);
-        } catch (parseErr) {
-            console.error('❌ Error parseando JSON en fetchProductos:', parseErr.message);
-            console.error('❌ Texto:', text.substring(0, 300));
-            throw new Error('Respuesta inválida del servidor: ' + text.substring(0, 100));
-        }
-
-        console.log('✅ JSON parseado en fetchProductos:', j);
-
-        if (!j.success) {
-            console.warn('⚠️ Servidor devolvió success: false, msg:', j.msg);
-            return [];
-        }
-
-        if (!j.productos || !Array.isArray(j.productos)) {
-            console.warn('⚠️ No hay array de productos en la respuesta');
-            return [];
-        }
-
-        console.log('✅ Encontrados', j.productos.length, 'productos');
+        const j = await res.json();
+        if (!j.success || !j.productos) return [];
+        
         return j.productos.map(p => {
-            let imgURL = p.imagenURL || p.imagen || '';
-            // Corregir rutas de imágenes que empiezan con /images/ → images/
-            if (imgURL.startsWith('/images/')) {
-                imgURL = imgURL.substring(1); // Remover la barra inicial
-            }
-            // Si la ruta es relativa, hacerla absoluta respecto a BASE_URL
+            let imgURL = p.imagenURL || '';
             if (imgURL && !imgURL.startsWith('http') && !imgURL.startsWith('data:')) {
-                imgURL = window.BASE_URL + '/' + imgURL;
+                if (imgURL.startsWith('/')) imgURL = imgURL.substring(1);
+                const base = window.BASE_URL.endsWith('/') ? window.BASE_URL.slice(0, -1) : window.BASE_URL;
+                imgURL = base + '/' + imgURL;
             }
             return {
-                id: p.ID_Producto,
-                nombre: p.nombre_producto || p.nombre || '',
-                precio: p.precio_unitario || p.precio || '',
+                id: parseInt(p.ID_Producto),
+                nombre: p.nombre_producto || '',
+                precio: p.precio_unitario || '',
                 imagen: imgURL,
                 descripcion: p.descripcion || ''
             };
         });
     } catch (err) {
-        console.error('❌ Error crítico en fetchProductos:', err);
-        throw err; // Re-lanzar para que el caller sepa que hubo error
+        console.error('Error fetchProductos:', err);
+        return [];
     }
 }
 
@@ -188,7 +155,7 @@ async function fetchFamilias() {
         // Abrir modal por productId (consulta al servidor y muestra datos)
         async function abrirModalById(productId) {
             const productos = await fetchProductos();
-            const producto = productos.find(p => p.id === productId);
+            const producto = productos.find(p => parseInt(p.id) === parseInt(productId));
             if (!producto) return;
             pizzaSeleccionada = producto;
             const modal = document.getElementById('modalPizza');
@@ -198,6 +165,7 @@ async function fetchFamilias() {
             document.getElementById('precioModal').textContent = '$ ' + pizzaSeleccionada.precio;
             modal.classList.add('activo');
         }
+        window.abrirModalById = abrirModalById;
 
         // Función para cerrar el modal
         function cerrarModal() {
@@ -245,24 +213,22 @@ async function fetchFamilias() {
 
         // Abrir modal de edición por productId
         async function abrirModalEditarById(productId) {
-            indicePizzaEditando = productId; // usamos id en lugar de índice
+            indicePizzaEditando = productId;
             const productos = await fetchProductos();
-            const pizza = productos.find(p => p.id === productId);
+            const pizza = productos.find(p => parseInt(p.id) === parseInt(productId));
             if (!pizza) return;
             const modal = document.getElementById('modalEditar');
-            // Actualizar título del modal
             document.querySelector('.titulo-modal-editar').textContent = `Estás modificando (${pizza.nombre})`;
-            // Llenar los campos del formulario
             document.getElementById('editarNombre').value = pizza.nombre;
             document.getElementById('editarPrecio').value = pizza.precio;
-            document.getElementById('editarDescripcion').value = pizza.descripcion;
-            // Mostrar imagen actual
+            document.getElementById('editarDescripcion').value = pizza.descripcion || '';
             const vistaPrevia = document.getElementById('vistaPrevia');
             vistaPrevia.src = pizza.imagen;
             vistaPrevia.style.display = 'block';
             imagenTemporal = null;
             modal.classList.add('activo');
         }
+        window.abrirModalEditarById = abrirModalEditarById;
 
         // Función para cerrar el modal de edición
         function cerrarModalEditar() {
@@ -558,8 +524,12 @@ async function fetchFamilias() {
             }
 
             fams.forEach((fam, idx) => {
-                // Obtener productos de esta familia
-                const productosFamilia = productos.filter(p => fam.products.includes(p.id));
+                // Obtener productos de esta familia - comparar IDs como números
+                const productosFamilia = productos.filter(p => {
+                    const productId = parseInt(p.id);
+                    const familyProductIds = fam.products.map(id => parseInt(id));
+                    return familyProductIds.includes(productId);
+                });
 
                 // Crear tarjeta de familia
                 const tarjeta = document.createElement('div');
@@ -575,12 +545,12 @@ async function fetchFamilias() {
                             <button class="familia-btn-nav anterior" onclick="desplazarCarruselFamilia(this, -1)">‹</button>
                             <div class="familia-carrusel" id="carruselFamilia${idx}">
                                 ${productosFamilia.map(p => `
-                                    <div class="familia-tarjeta-producto">
-                                        <div class="familia-producto-editar" onclick="abrirModalEditarById(${p.id}); event.stopPropagation();">✏️</div>
-                                        <div class="familia-producto-imagen" onclick="abrirModalById(${p.id})">
+                                    <div class="familia-tarjeta-producto" data-product-id="${p.id}">
+                                        <div class="familia-producto-editar" data-product-id="${p.id}">✏️</div>
+                                        <div class="familia-producto-imagen" data-product-id="${p.id}">
                                             <img src="${p.imagen}" alt="${p.nombre}" class="familia-producto-img">
                                         </div>
-                                        <div class="familia-producto-info" onclick="abrirModalById(${p.id})">
+                                        <div class="familia-producto-info" data-product-id="${p.id}">
                                             <div class="familia-producto-nombre">${p.nombre}</div>
                                             <div class="familia-producto-precio">$ ${p.precio}</div>
                                         </div>
@@ -606,7 +576,7 @@ async function fetchFamilias() {
 
                 container.appendChild(tarjeta);
 
-                // Listeners para botones
+                // Listeners para botones de familia
                 tarjeta.querySelector('.btn-editar-familia').addEventListener('click', () => {
                     abrirModalEditarFamilia({ nombre: fam.name, productos: fam.products, id: fam.id });
                 });
@@ -615,6 +585,42 @@ async function fetchFamilias() {
                     const confirmacion = confirm(`¿Estás seguro de eliminar la familia "${fam.name}"?`);
                     if (confirmacion) {
                         eliminarFamiliaById(fam.id);
+                    }
+                });
+
+                // Listeners para productos dentro del carrusel
+                const productosTarjetas = tarjeta.querySelectorAll('.familia-tarjeta-producto');
+                productosTarjetas.forEach(tarjetaProducto => {
+                    const productId = parseInt(tarjetaProducto.dataset.productId, 10);
+                    
+                    // Botón de editar
+                    const botonEditar = tarjetaProducto.querySelector('.familia-producto-editar');
+                    if (botonEditar) {
+                        botonEditar.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            if (window.abrirModalEditarById) {
+                                window.abrirModalEditarById(productId);
+                            }
+                        });
+                    }
+                    
+                    // Imagen e info para abrir modal de detalles
+                    const imagen = tarjetaProducto.querySelector('.familia-producto-imagen');
+                    const info = tarjetaProducto.querySelector('.familia-producto-info');
+                    if (imagen) {
+                        imagen.addEventListener('click', () => {
+                            if (window.abrirModalById) {
+                                window.abrirModalById(productId);
+                            }
+                        });
+                    }
+                    if (info) {
+                        info.addEventListener('click', () => {
+                            if (window.abrirModalById) {
+                                window.abrirModalById(productId);
+                            }
+                        });
                     }
                 });
             });
